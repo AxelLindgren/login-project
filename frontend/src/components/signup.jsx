@@ -13,9 +13,9 @@ const handleNavigateSignUp = () => {
       <>
         <div className="loginContainer">
           <div className="loginBox">
-            <h1 className="header">Task Manager</h1>
+            <h1 className="header">Sign up here</h1>
             <div className="loginDiv">
-              <h2 className="miniHeader">Sign Up</h2>
+              {/* <h2 className="miniHeader"></h2> */}
               <form>
                 <div className="formGroup">
                   <label className="inputLabel">Username </label>

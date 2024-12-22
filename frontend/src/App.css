@@ -1,38 +1,432 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  overflow: hidden;
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #f7b2b7;
   min-height: 100vh;
   display: flex;
+  align-items: center;
+}
+
+.sideBar {
+  width: 20%;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  border-top: 0.3rem #16001e solid;
+  border-left: 0.3rem #16001e solid;
+  border-bottom: 0.3rem #16001e solid;
+  border-right: none;
+  display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.loginBar {
+  box-sizing: border-box;
+  border: 0.3rem #16001e solid;
+  margin: 2rem 2rem 2rem 2rem;
+  padding: 2rem;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 400ms ease;
+}
+
+.loginBar:hover {
+  transform: scale(1.1);
+}
+
+.goBack {
+  border: #16001e 0.3rem solid;
+  position: absolute;
+  bottom: 1rem;
+  left: 2rem;
+  padding: 3rem;
+  margin: 3rem;
+  width: 5rem;
+  height: 5rem;
+  z-index: 2;
+  background-color: #f7b2b7;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  text-align: center;
+  cursor: pointer;
+  transition: all 400ms 0s ease;
 }
 
-.App-link {
-  color: #61dafb;
+.goBack:hover {
+  transform: scale(1.1);
+  transition: all 400ms 0s ease;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.arrow {
+  transform: scale(7);
+  font-size: 1rem;
+}
+
+/* Task Manager */
+
+.header {
+  font-size: 4rem;
+  transition: transform 400ms ease 0s;
+}
+
+.header:hover {
+  transform: rotate(1deg);
+}
+
+.rightMainBar {
+  width: 100%;
+  height: 100dvh;
+  box-sizing: border-box;
+  border: 0.3rem #16001e solid;
+}
+
+.infoBar {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  border: 0.3rem #16001e solid;
+  padding: 1rem;
+  margin: 0rem 3rem 2rem 3rem;
+}
+
+.infoBarItem {
+  font-size: 1.5rem;
+  font-weight: bold;
+  width: 20%;
+  transition: transform 400ms ease 0s;
+}
+
+.infoBarItem2 {
+  font-size: 1.5rem;
+  transition: transform 400ms ease 0s;
+}
+
+.infoBarItem:hover {
+  transform: rotate(-1deg);
+}
+
+.infoBarItem2:hover {
+  transform: rotate(-1deg);
+}
+
+.taskDiv {
+  border: 0.3rem #16001e solid;
+  margin: 0rem 3rem 0rem 3rem;
+  min-height: 55vh;
+}
+
+.taskBar {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 0.3rem #16001e solid;
+  padding: 1rem;
+  margin: 0;
+}
+
+.taskItem {
+  font-size: 1rem;
+  width: 20%;
+}
+
+.taskItemRemove {
+  font-size: 1rem;
+  margin: 0rem;
+  padding: 0rem;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  transform: scale(2);
+}
+
+.addItem {
+  border: #16001e 0.3rem solid;
+  position: absolute;
+  bottom: 4rem;
+  right: 4rem;
+  padding: 3rem;
+  width: 5rem;
+  height: 5rem;
+  /* width: 5%;
+  height: 5%;  */
+  z-index: 2;
+  background-color: #f7b2b7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 400ms 0s ease;
+}
+
+.addItem:hover {
+  transform: scale(1.1);
+  transition: all 400ms 0s ease;
+}
+
+.plus {
+  font-size: 1rem;
+  position: relative;
+  top: -0.5rem;
+  transform: scale(7);
+}
+
+/* Login Container */
+
+.loginContainer {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.loginBox {
+  border: #16001e 0.3rem solid;
+  padding: 3rem;
+}
+
+.inputField {
+  background-color: #f7b2b7;
+  color: #16001e;
+  border: #16001e 0.2rem solid;
+  flex: 1;
+}
+
+.inputLabel {
+  font-weight: bolder;
+  flex: 0 0 120px;
+  text-align: left;
+}
+
+.formGroup {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.submit {
+  background-color: #f7b2b7;
+  color: #16001e;
+  border: #16001e 0.2rem solid;
+  font-weight: bolder;
+  cursor: pointer;
+  float: right;
+  transition: transform 400ms ease 0s;
+}
+
+.submit:hover {
+  transform: scale(1.05);
+}
+
+.submit2 {
+  background-color: #f7b2b7;
+  color: #16001e;
+  border: #16001e 0.2rem solid;
+  font-weight: bolder;
+  cursor: pointer;
+  float: right;
+  margin: 3rem;
+  transition: transform 400ms ease 0s;
+}
+
+.submit2:hover {
+  transform: scale(1.05);
+}
+
+.miniHeader {
+  transition: transform 400ms ease 0s;
+}
+
+.miniHeader:hover {
+  transform: rotate(-1deg);
+}
+
+/* Responsiveness */
+
+@media only screen and (max-width: 450px) {
+  .loginBar {
+    box-sizing: border-box;
+    border: 0.3rem #16001e solid;
+    margin: 1rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 400ms ease;
   }
-  to {
-    transform: rotate(360deg);
+
+  .sideBar {
+    width: 20%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    border-top: 0.3rem #16001e solid;
+    border-left: 0.3rem #16001e solid;
+    border-bottom: 0.3rem #16001e solid;
+    border-right: none;
+  }
+
+  .goBack {
+    border: #16001e 0.3rem solid;
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.5rem;
+    margin: 0.2rem;
+    width: 2rem;
+    height: 2rem;
+    z-index: 2;
+    background-color: #f7b2b7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 400ms 0s ease;
+  }
+
+  .arrow {
+    transform: scale(3);
+    font-size: 1rem;
+  }
+
+  .header {
+    font-size: 3rem;
+  }
+
+  .infoBarItem {
+    font-size: 0.5rem;
+  }
+
+  .taskItem {
+    font-size: 0.5rem;
+  }
+
+  .taskItemRemove {
+    transform: scale(1);
+    position: relative;
+    right: -0.5rem;
+  }
+
+  .addItem {
+    border: #16001e 0.3rem solid;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.5rem;
+    margin: 0.2rem;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .plus {
+    font-size: 1rem;
+    position: relative;
+    top: -0.5rem;
+    transform: scale(3);
+  }
+}
+
+@media only screen and (max-width: 870px) {
+  .loginBar {
+    box-sizing: border-box;
+    border: 0.3rem #16001e solid;
+    margin: 1rem;
+    padding: 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 400ms ease;
+  }
+
+  .infoBarItem {
+    font-size: 0.8rem;
+    width: 20%;
+  }
+
+  .taskItem {
+    font-size: 0.7rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .loginBar {
+    box-sizing: border-box;
+    border: 0.3rem #16001e solid;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 400ms ease;
+  }
+
+  .infoBarItem {
+    font-size: 0.5rem;
+    width: 20%;
+  }
+
+  .goBack {
+    border: #16001e 0.3rem solid;
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.5rem;
+    margin: 0.2rem;
+    width: 4rem;
+    height: 4rem;
+    z-index: 2;
+    background-color: #f7b2b7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 400ms 0s ease;
+  }
+
+  .arrow {
+    transform: scale(3);
+    font-size: 1rem;
+  }
+
+  .addItem {
+    border: #16001e 0.3rem solid;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.5rem;
+    margin: 0.2rem;
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .plus {
+    font-size: 1rem;
+    position: relative;
+    top: -0.5rem;
+    transform: scale(3);
+  }
+
+  .taskItem {
+    font-size: 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .loginBar {
+    box-sizing: border-box;
+    border: 0.3rem #16001e solid;
+    margin: 0.1rem;
+    padding: 0.1rem;
+    font-size: 0.5rem;
+    cursor: pointer;
+    transition: transform 400ms ease;
+  }
+
+  .taskItem {
+    font-size: 0.3rem;
   }
 }
