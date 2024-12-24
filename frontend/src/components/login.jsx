@@ -15,16 +15,16 @@ const Login = ({ handleGoBack }) => {
           <h1 className="header">Login Project</h1>
           <div className="loginDiv">
             <h2 className="miniHeader">Login</h2>
-            <form>
+            <form action="/authenticate" method="post">
               <div className="formGroup">
                 <label className="inputLabel">Username </label>
-                <input className="inputField" /> <br />
+                <input className="inputField" name="username" type="text"/> <br />
                 <br />
               </div>
 
               <div className="formGroup">
                 <label className="inputLabel">Password </label>
-                <input className="inputField" /> <br />
+                <input className="inputField" name="password" type="password"/> <br />
                 <br />
               </div>
               <button type="submit" className="submit2">
@@ -36,14 +36,17 @@ const Login = ({ handleGoBack }) => {
               <button type="submit" className="submit2">
                 Continue as guest
               </button>
-              <button
+              
+              
+             
+            </form>
+            <button
                 type="submit"
                 className="submit2"
                 onClick={handleNavigateSignUp}
               >
                 Sign up
               </button>
-            </form>
           </div>
         </div>
         <div className="goBack" onClick={handleNavigateSignUp}>
