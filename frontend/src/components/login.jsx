@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from 'axios';
-require('dotenv').config();
 
 
 const Login = ({ handleGoBack }) => {
@@ -9,7 +8,7 @@ const Login = ({ handleGoBack }) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const hostUrl = process.env.hostURL || "https://localhost:5000";
+  const hostUrl = process.env.REACT_APP_HOST_URL || "https://localhost:5000";
 
   const handleNavigateSignUp = () => {
     navigate("/SignUp");
