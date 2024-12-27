@@ -1,11 +1,32 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from 'axios';
+require('dotenv').config();
 
 
 const Login = ({ handleGoBack }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  const hostUrl = process.env.hostURL || "https://localhost:5000";
 
   const handleNavigateSignUp = () => {
     navigate("/SignUp");
+  };
+
+  const handleSubmit = async () => {
+    try {
+    const response = await axios.post(`${hostUrl}/login`, {
+      username,
+      password,
+    });
+    alert('Login Success');
+    console.log(response.data)
+  } catch (err) {
+    console.log(err);
+    alert('Login Fail: ' + err)
+  }
   };
 
   return (
@@ -15,27 +36,27 @@ const Login = ({ handleGoBack }) => {
           <h1 className="header">Login Project</h1>
           <div className="loginDiv">
             <h2 className="miniHeader">Login</h2>
-            <form action="/authenticate" method="post">
+            <form action="/login" method="POST" onSubmit={() => handleSubmit}>
               <div className="formGroup">
                 <label className="inputLabel">Username </label>
-                <input className="inputField" name="username" type="text"/> <br />
+                <input className="inputField" name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} /> <br />
                 <br />
               </div>
 
               <div className="formGroup">
                 <label className="inputLabel">Password </label>
-                <input className="inputField" name="password" type="password"/> <br />
+                <input className="inputField" name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} /> <br />
                 <br />
               </div>
               <button type="submit" className="submit2">
                 Login
               </button>
-              <button type="submit" className="submit2">
+              {/* <button type="submit" className="submit2">
                 Sign in with Oauth
               </button>
               <button type="submit" className="submit2">
                 Continue as guest
-              </button>
+              </button> */}
               
               
              
