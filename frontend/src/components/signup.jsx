@@ -9,7 +9,7 @@ const SignUp = () => {
   const hostUrl = process.env.REACT_APP_HOST_URL || "https://localhost:5000";
 
   const handleNavigateSignUp = () => {
-    navigate("/Login");
+    navigate("/login-page");
   };
 
   const handlePasswordChange = (e) => {

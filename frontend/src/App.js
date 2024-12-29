@@ -13,9 +13,9 @@ function App() {
       <header className="App-header">
         
         <Routes>
-          <Route element={<Navigate to={"/login"} />} path='/' />
-          <Route element={<Login />} path='/Login' />
-          <Route element={<SignUp />} path='/SignUp' />
+          <Route element={<Navigate to={"/login-page"} />} path='/' />
+          <Route element={<Login />} path='/login-page' />
+          <Route element={<SignUp />} path='/signup-page' />
         </Routes>
       </header>
     </div>

@@ -1,9 +1,9 @@
-const bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("passport");
 const dotenv = require("dotenv");
 import LoginPath from "../../frontend/src/components/login";
 import SignUpPath from "../../frontend/src/components/signup";
+import LogoutPath from "../src/route/logout";
 import AuthenticatePath from "../../frontend/src/components/authenticate";
 const LocalStrategyPath = require("./strategy/local-strategy");
 
@@ -38,13 +38,15 @@ app.use(passport.session());
 app.use("/login", LoginPath);
 app.use("/signup", SignUpPath);
 app.use("/authenticate", AuthenticatePath);
+app.use("/logout", LogoutPath);
+app.use("/local", LocalStrategyPath);
 
 app.get("/", (req, res) => {
   res.render("Root reached");
 });
 
 app.post("/api/auth", passport.authenticate("local"), (req, res) => {
-  res.sendStatus(200);
+  res.send(200).json({ message: 'Auth success'});
 });
 
 app.get("/api/auth/status", (req, res) => {
