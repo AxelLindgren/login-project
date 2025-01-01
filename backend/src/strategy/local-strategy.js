@@ -1,22 +1,29 @@
 const express = require("express");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const crypto = require("crypto");
-const users = require("../db");
+const bcrypt = require("bcryptjs");
+const pool = require("../db");
 
-export default passport.use(
-  new LocalStrategy((username, password, done) => {
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
     try {
-      const foundUser = users.find((u) => users.username === username);
-      if (!foundUser) {
-        throw new Error("User not found");
+      const query = "SELECT * FROM users WHERE username = $1";
+      const { rows } = await pool.query(query, [username]);
+
+      if (rows.length === 0) {
+        return done(null, false, { message: "User not found" });
       }
-      if (foundUser.password !== password) {
-        throw new Error("wrong password");
+
+      const user = rows[0];
+
+      const isValid = await bcrypt.compare(password, user.password);
+      if (!isValid) {
+        return done(null, false, { message: "Incorrect password" });
       }
-      done(null, foundUser);
+
+      return done(null, user);
     } catch (err) {
-      done(err, null);
+      return done(err);
     }
   })
 );
@@ -29,11 +36,19 @@ passport.serializeUser((user, done) => {
   }
 });
 
-passport.deserializeUser((id, done) => {
+passport.deserializeUser(async (id, done) => {
   try {
-    const findUser = users.find((user) => user.id === id);
-    done(null, findUser);
+    const query = "SELECT * FROM users WHERE id = $1";
+    const { rows } = await pool.query(query, [id]);
+
+    if (rows.length === 0) {
+      return done(new Error("User not found"));
+    }
+
+    done(null, rows[0]);
   } catch (err) {
     done(err);
   }
 });
+
+module.exports = passport;

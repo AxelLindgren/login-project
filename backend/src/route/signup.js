@@ -1,10 +1,9 @@
 const express = require("express");
-const session = require("express-session");
-const passport = require("passport");
 const bcrypt = require("bcryptjs");
-const { Pool, pool } = require("../db");
+const { pool } = require("../db");
+const router = express.Router();
 
-app.post("/signup", async (req, res) => {
+router.post("/", async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -32,3 +31,9 @@ app.post("/signup", async (req, res) => {
       .json({ message: "error signing up at signup.js in backend" });
   }
 });
+
+router.options("/", (req, res) => {
+  res.send("reached app.option")
+})
+
+module.exports = router;

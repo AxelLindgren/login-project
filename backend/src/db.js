@@ -6,17 +6,14 @@ const pool = new Pool({
   database: process.env.DB_NAME || "loginDB",
   password: process.env.DB_PASSWORD || "Ixix7991",
   port: process.env.DB_PORT || 5432,
-  // ssl: {
+  ssl: false,
+  // {
   //   rejectUnauthorized: false,
   // },
 });
 
 const users = [];
 
-module.exports = {
-  pool,
-  users,
-};
 
 pool.query("SELECT NOW()", (err, res) => {
   if (err) {
@@ -25,3 +22,8 @@ pool.query("SELECT NOW()", (err, res) => {
     console.log("Success:", res.rows[0]);
   }
 });
+
+module.exports = {
+  pool,
+  users,
+};

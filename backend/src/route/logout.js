@@ -1,12 +1,12 @@
 const express = require("express");
-const session = require("express-session");
-const passport = require("passport");
-const bcrypt = require("bcryptjs");
-import users from "../db";
+const router = express.Router();
 
-app.get("/logout", (req, res) => {
+router.get("/", (req, res) => {
   req.logout((err) => {
     if (err) return res.status(500).send(err);
     res.json({ message: "Logged out!" });
   });
 });
+
+
+module.exports = router;

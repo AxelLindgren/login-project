@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 const SignUp = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const hostUrl = process.env.REACT_APP_HOST_URL || "https://localhost:5000";
+  const hostUrl = "http://localhost:5000";
 
   const handleNavigateSignUp = () => {
     navigate("/login-page");
@@ -14,21 +14,28 @@ const SignUp = () => {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+    console.log(password)
   };
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
+    console.log(username)
   };
- 
+
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${hostUrl}/signup`, {
-        username,
-        password,
-      });
+      const response = await axios.post(
+        `${hostUrl}/signup`,
+        {
+          username,
+          password,
+        },
+        { withCredentials: true }
+      );
       console.log(response.data);
-      alert('Signup success');
+      alert("Signup success");
+      navigate("/login-page");
     } catch (err) {
       console.log(err.response.data);
       alert(`Signup Fail: ${err.response?.data?.message}`);
@@ -44,13 +51,27 @@ const SignUp = () => {
             <form action="/signup" method="POST" onSubmit={handleSignup}>
               <div className="formGroup">
                 <label className="inputLabel">Username </label>
-                <input className="inputField" value={username} onChange={handleUsernameChange} required /> <br />
+                <input
+                  className="inputField"
+                  value={username}
+                  onChange={handleUsernameChange}
+                  type="text"
+                  required
+                />{" "}
+                <br />
                 <br />
               </div>
 
               <div className="formGroup">
                 <label className="inputLabel">Password </label>
-                <input className="inputField" value={password} onChange={handlePasswordChange} required /> <br />
+                <input
+                  className="inputField"
+                  value={password}
+                  type="password"
+                  onChange={handlePasswordChange}
+                  required
+                />{" "}
+                <br />
                 <br />
               </div>
               <button type="submit" className="submit">
