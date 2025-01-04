@@ -12,7 +12,7 @@ const pool = new Pool({
   // },
 });
 
-const users = [];
+// const users = [];
 
 
 pool.query("SELECT NOW()", (err, res) => {
@@ -23,7 +23,4 @@ pool.query("SELECT NOW()", (err, res) => {
   }
 });
 
-module.exports = {
-  pool,
-  users,
-};
+module.exports = pool;

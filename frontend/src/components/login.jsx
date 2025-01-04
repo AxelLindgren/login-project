@@ -7,7 +7,7 @@ const Login = ({ handleGoBack }) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const hostUrl = process.env.REACT_APP_HOST_URL || "http://localhost:5000";
+  const hostUrl = "http://localhost:5000";
 
   const handleNavigateSignUp = () => {
     navigate("/signup-page");
@@ -27,10 +27,11 @@ const Login = ({ handleGoBack }) => {
         }
       );
       alert("Login Success");
-      console.log(response.data);
+      console.log('login response', response.data);
+      navigate(response.data.redirect);
     } catch (err) {
-      console.log(err);
-      alert("Login Fail: " + err);
+      console.log('login error', err || err.message);
+      alert("Login Fail: " + err.message);
     }
   };
 

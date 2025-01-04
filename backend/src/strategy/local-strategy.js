@@ -1,28 +1,32 @@
 const express = require("express");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const bcrypt = require("bcryptjs");
-const pool = require("../db");
+const bcrypt = require("bcrypt");
+const pool = require('../db');
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
       const query = "SELECT * FROM users WHERE username = $1";
       const { rows } = await pool.query(query, [username]);
+      console.log("query result", rows);
 
       if (rows.length === 0) {
+        console.log("user not found", username)
         return done(null, false, { message: "User not found" });
       }
 
       const user = rows[0];
 
       const isValid = await bcrypt.compare(password, user.password);
+      console.log("password validation", isValid);
       if (!isValid) {
         return done(null, false, { message: "Incorrect password" });
       }
-
+      console.log("auth succ", user.username);
       return done(null, user);
     } catch (err) {
+      console.error("error during auth", err);
       return done(err);
     }
   })
