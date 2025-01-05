@@ -1,5 +1,5 @@
 const express = require("express");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const pool = require("../db");
 const router = express.Router();
 
@@ -21,7 +21,10 @@ router.post("/", async (req, res) => {
     VALUES ($1, $2)
     RETURNING id, username
     `;
-    const insertResult = await pool.query(insertUser, [username, hashedPassword]);
+    const insertResult = await pool.query(insertUser, [
+      username,
+      hashedPassword,
+    ]);
 
     res.status(200).json({ message: "Success!!", user: insertResult.rows[0] });
   } catch (err) {
@@ -33,7 +36,7 @@ router.post("/", async (req, res) => {
 });
 
 router.options("/", (req, res) => {
-  res.send("reached app.option")
-})
+  res.send("reached app.option");
+});
 
 module.exports = router;

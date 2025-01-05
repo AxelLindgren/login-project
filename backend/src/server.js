@@ -11,8 +11,6 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -27,8 +25,8 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24, 
-      httpOnly: true, 
+      maxAge: 1000 * 60 * 60 * 24,
+      httpOnly: true,
       secure: false,
     },
   })
@@ -36,17 +34,6 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-const LoginPath = require("./route/login");
-const LogoutPath = require("./route/logout");
-const SignUpPath = require("./route/signup");
-
-
-
-app.use("/login", LoginPath);
-app.use("/logout", LogoutPath);
-app.use("/signup", SignUpPath);
-
 
 app.get("/", (req, res) => {
   res.status(201).json({ message: "Root reached" });
@@ -56,8 +43,21 @@ app.post("/api/auth", passport.authenticate("local"), (req, res) => {
   res.status(200).json({ message: "Auth success" });
 });
 
-app.get("/amanda", (req, res) => {
-  res.status(201).json({ message: "I FOUND HER AMAGAHD" });
+const LoginPath = require("./route/login");
+const LogoutPath = require("./route/logout");
+const SignUpPath = require("./route/signup");
+const userDataPath = require("./userData");
+const commentPath = require("./route/comment");
+
+app.use("/login", LoginPath);
+app.use("/logout", LogoutPath);
+app.use("/signup", SignUpPath);
+app.use("/user", userDataPath);
+app.use("/comment", commentPath);
+app.use((req, _res, next) => {
+  console.log("Session:", req.session);
+  console.log("User:", req.user);
+  next();
 });
 
 app.listen(PORT, () => {
