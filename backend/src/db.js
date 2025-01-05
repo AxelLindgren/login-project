@@ -7,10 +7,10 @@ const pool = new Pool({
   database: process.env.DB_NAME || "logindb",
   password: process.env.DB_PASSWORD || "Ixix7991",
   port: process.env.DB_PORT || 5432,
-  ssl: false,
-  // ssl: {
-  //   rejectUnauthorized: false,
-  // },
+  // ssl: false,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 // const users = [];
