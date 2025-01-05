@@ -7,9 +7,11 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
   const [comment, setComment] = useState("");
   const [fetchedComment, setFetchedComments] = useState([]);
-  const url = "http://localhost:5000";
+  const url = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
   const navigate = useNavigate();
+
+//   console.log(process.env.REACT_APP_API_URL);
 
   const fetchUserData = async () => {
     try {
@@ -51,7 +53,7 @@ const Dashboard = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:5000/logout", {
+      await axios.get(`${url}/logout`, {
         withCredentials: true,
       });
       navigate("/login-page");
@@ -65,9 +67,9 @@ const Dashboard = () => {
     fetchUserData();
   }, []);
 
-//   useEffect(() => {
-//     fetchComments();
-//   }, []);
+  useEffect(() => {
+    fetchComments();
+  }, []);
 
   return (
     <div className="loginContainer">
@@ -79,19 +81,19 @@ const Dashboard = () => {
         <div>
           <pre>Your username is: {JSON.stringify(userData.username)}</pre>
           <pre>Your ID is: {JSON.stringify(userData.id)}</pre>
-          {/* <h3>Your Comments:</h3>
+          <h3>Your Comments:</h3>
           {fetchedComment ? (
             fetchedComment.map((comment, index) => (
               <p key={index}>{comment.content}</p>
             ))
           ) : (
             <p>No comments yet</p>
-          )} */}
+          )}
         </div>
       ) : (
         <p>Loading...</p>
       )}
-      {/* <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <textarea
           placeholder="Write a comment here"
           rows="4"
@@ -102,7 +104,7 @@ const Dashboard = () => {
         <br></br>
         <button type="submit">Submit</button>
       </form>
-      <br />*/}
+      <br />
       <button onClick={handleLogout}>Logout</button> 
     </div>
   );

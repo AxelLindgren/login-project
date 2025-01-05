@@ -7,7 +7,7 @@ const Login = ({ handleGoBack }) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const hostUrl = "http://localhost:5000";
+  const hostUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
   const handleNavigateSignUp = () => {
     navigate("/signup-page");

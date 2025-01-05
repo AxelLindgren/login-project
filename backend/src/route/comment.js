@@ -1,4 +1,3 @@
-// ./route/comment.js
 const express = require("express");
 const router = express.Router();
 const isAuthenticated = require("../middlewares/isAuth");
@@ -24,10 +23,10 @@ router.get("/", isAuthenticated, async (req, res) => {
   try {
     const userId = req.user.id;
     const query = `
-      SELECT content, created_at 
+      SELECT content 
       FROM comments 
       WHERE user_id = $1 
-      ORDER BY created_at DESC
+      ORDER BY content DESC
     `;
     const result = await pool.query(query, [userId]);
     res.json(result.rows);
