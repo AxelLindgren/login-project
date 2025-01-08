@@ -3,7 +3,7 @@ const router = express.Router();
 const isAuthenticated = require("./middlewares/isAuth");
 const pool = require("./db");
 
-router.get("/data", async (req, res) => {
+router.get("/data", isAuthenticated, async (req, res) => {
   try {
     const userId = req.user.id;
     const query = "SELECT * FROM users WHERE id = $1";
