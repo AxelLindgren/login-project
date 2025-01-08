@@ -30,9 +30,9 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      httpOnly: false,
+      secure: false,
+      // sameSite: "none",
     },
   })
 );
