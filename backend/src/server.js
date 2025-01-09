@@ -5,7 +5,7 @@ const session = require("express-session");
 const passport = require("passport");
 const cors = require("cors");
 require("./strategy/local-strategy");
-const RedisStore = require("connect-redis")(session);
+const RedisStore = require("connect-redis").default;
 const redis = require("redis");
 
 const PORT = process.env.PORT || 5000;
