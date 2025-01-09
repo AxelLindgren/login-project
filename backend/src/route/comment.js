@@ -1,19 +1,11 @@
 const express = require("express");
 const router = express.Router();
-// const isAuthenticated = require("../middlewares/isAuth");
+const isAuthenticated = require("../middlewares/isAuth");
 const pool = require("../db");
 
-const isAuthenticated = (req, res, next) => {
-  console.log("Authenticated User:", req.user);
-  if (req.isAuthenticated()) {
-    next();
-  } else {
-    res.status(401).json({ message: "Unauth.." });
-  }
-};
 
 
-router.post("/", isAuthenticated, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { comment } = req.body;
     const userId = req.user.id;
@@ -29,7 +21,7 @@ router.post("/", isAuthenticated, async (req, res) => {
   }
 });
 
-router.get("/", isAuthenticated, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const userId = req.user.id;
     const query = `

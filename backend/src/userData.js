@@ -1,19 +1,9 @@
 const express = require("express");
 const router = express.Router();
-// const isAuthenticated = require("./middlewares/isAuth");
+const isAuthenticated = require("./middlewares/isAuth");
 const pool = require("./db");
 
-const isAuthenticated = (req, res, next) => {
-  console.log("Authenticated User:", req.user);
-  if (req.isAuthenticated()) {
-    next();
-  } else {
-    res.status(401).json({ message: "Unauth.." });
-  }
-};
-
-
-router.get("/data", isAuthenticated, async (req, res) => {
+router.get("/data", async (req, res) => {
   try {
     const userId = req.user.id;
     const query = "SELECT * FROM users WHERE id = $1";
