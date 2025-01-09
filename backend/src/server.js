@@ -30,9 +30,9 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
-      httpOnly: false,
-      secure: false,
-      // sameSite: "none",
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
     },
   })
 );
@@ -68,6 +68,7 @@ app.use((req, _res, next) => {
   console.log("User:", req.user);
   next();
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server running and listening to ${PORT}`);
