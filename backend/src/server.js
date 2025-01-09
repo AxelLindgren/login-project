@@ -5,15 +5,32 @@ const session = require("express-session");
 const passport = require("passport");
 const cors = require("cors");
 require("./strategy/local-strategy");
+const RedisStore = require("connect-redis")(session);
+const redis = require("redis");
 
 const PORT = process.env.PORT || 5000;
 const SESSION_SECRET = process.env.SESSION_SECRET || "default_secret";
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:3000";
 
 
+const redisClient = redis.createClient({
+  url: "rediss://red-ctvu1bggph6c73cg96h0:iOwZyFFJffpgSOMFBq7gRYHo4on1oWug@oregon-redis.render.com:6379", 
+});
+
+redisClient.on("connect", () => {
+  console.log("Connected to Redis");
+});
+
+redisClient.on("error", (err) => {
+  console.error("Redis connection error:", err);
+});
+
+redisClient.connect().catch((err) => console.error("Redis connection error:", err));
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 
 app.use(
   cors({
@@ -25,6 +42,7 @@ app.use(
 
 app.use(
   session({
+    store: new RedisStore({ client: redisClient }),
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
@@ -67,6 +85,14 @@ app.use((req, _res, next) => {
   console.log("Session:", req.session);
   console.log("User:", req.user);
   next();
+});
+
+app.get("/health-check", (req, res) => {
+  if (req.session) {
+    res.status(200).send("Session working");
+  } else {
+    res.status(500).send("Session not working");
+  }
 });
 
 

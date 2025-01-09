@@ -5,7 +5,7 @@ const pool = require("../db");
 
 
 
-router.post("/", async (req, res) => {
+router.post("/", isAuthenticated, async (req, res) => {
   try {
     const { comment } = req.body;
     const userId = req.user.id;
@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", isAuthenticated, async (req, res) => {
   try {
     const userId = req.user.id;
     const query = `
