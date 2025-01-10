@@ -2,17 +2,19 @@ const express = require("express");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
-const pool = require('../db');
+const pool = require("../db");
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
+    console.log("LocalStrategy triggered with username:", username);
+
     try {
       const query = "SELECT * FROM users WHERE username = $1";
       const { rows } = await pool.query(query, [username]);
       console.log("query result", rows);
 
       if (rows.length === 0) {
-        console.log("user not found", username)
+        console.log("user not found", username);
         return done(null, false, { message: "User not found" });
       }
 
@@ -33,14 +35,14 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  try {
-    done(null, user.id);
-  } catch (err) {
-    done(err);
-  }
+  console.log("Serializing user:", user);
+
+  done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
+  console.log("Deserializing user ID:", id);
+
   try {
     const query = "SELECT * FROM users WHERE id = $1";
     const { rows } = await pool.query(query, [id]);
@@ -48,9 +50,10 @@ passport.deserializeUser(async (id, done) => {
     if (rows.length === 0) {
       return done(new Error("User not found"));
     }
-
     done(null, rows[0]);
+
   } catch (err) {
+    console.error("Error during deserialization:", err);
     done(err);
   }
 });

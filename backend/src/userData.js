@@ -3,6 +3,11 @@ const router = express.Router();
 const isAuthenticated = require("./middlewares/isAuth");
 const pool = require("./db");
 
+router.get("/test", (req, res) => {
+  res.status(200).json({ message: 'test in userdata'})
+});
+
+
 router.get("/data", isAuthenticated, async (req, res) => {
   try {
     const userId = req.user.id;

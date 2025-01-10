@@ -3,7 +3,9 @@ const router = express.Router();
 const isAuthenticated = require("../middlewares/isAuth");
 const pool = require("../db");
 
-
+router.get("/test", (req, res) => {
+  res.status(200).json({ message: 'test in comment works'})
+});
 
 router.post("/", isAuthenticated, async (req, res) => {
   try {
