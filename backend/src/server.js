@@ -12,10 +12,8 @@ const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:3000";
 
 // Check that session and cookies work like they should
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 
 app.use(
   cors({
@@ -25,7 +23,6 @@ app.use(
   })
 );
 
-
 app.use(
   session({
     secret: SESSION_SECRET,
@@ -33,9 +30,9 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
-      httpOnly: false,
-      secure: false,
-      // sameSite: "none",
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
     },
   })
 );
@@ -52,13 +49,10 @@ app.get("/", (req, res) => {
 });
 
 app.post("/api/auth", passport.authenticate("local"), (req, res) => {
-  console.log("Authenticated user:", req.user); 
+  console.log("Authenticated user:", req.user);
   console.log("Session after login:", req.session);
   res.status(200).json({ message: "Login successful", user: req.user });
-
 });
-
-
 
 const LoginPath = require("./route/login");
 const LogoutPath = require("./route/logout");
@@ -74,20 +68,23 @@ app.use("/user", userDataPath);
 app.use("/comment", commentPath);
 app.use((req, _res, next) => {
   console.log("Session:", req.session);
+  console.log("Session ID:", req.sessionID);
   console.log("User:", req.user);
   next();
 });
 
+
 app.get("/health-check", (req, res) => {
   if (req.session) {
-    res.status(200).send("Session working");
+    if (!req.session.test) req.session.test = "Session is working!";
+    res.status(200).send(`Session working, message: ${req.session.test}`);
   } else {
     res.status(500).send("Session not working");
   }
 });
 
 app.post("/protected", isAuthenticated, (req, res) => {
-  console.log("Authenticated user:", req.user); 
+  console.log("Authenticated user:", req.user);
   res.status(200).json({ message: "isAuthenticated success" });
 });
 
