@@ -32,7 +32,7 @@ app.use(
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
       secure: true,
-      sameSite: "none",
+      sameSite: "lax",
     },
   })
 );
@@ -93,5 +93,6 @@ app.post("/protected", isAuthenticated, (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running and listening to ${PORT}`);
 });
+
 
 module.exports = app;
