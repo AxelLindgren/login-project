@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 const SESSION_SECRET = process.env.SESSION_SECRET || "default_secret";
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:3000";
 
-// Check that session and cookies work like they should
+// Test Ngrok 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
