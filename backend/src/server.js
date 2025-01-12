@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 const SESSION_SECRET = process.env.SESSION_SECRET || "default_secret";
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:3000";
 
-// Test Ngrok 
+// Trust Proxy
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -41,10 +41,6 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-// console.log(process.env.CORS_ORIGIN);
-// console.log(process.env.SESSION_SECRET);
-// console.log(process.env.PORT);
 
 app.get("/", (req, res) => {
   res.status(201).json({ message: "Root reached" });
@@ -100,8 +96,6 @@ app.post("/protected", isAuthenticated, (req, res) => {
 // https.createServer(options, app).listen(5000, () => {
 //   console.log('HTTPS server running at https://localhost');
 // });
-
-
 
 app.listen(PORT, () => {
   console.log(`Server running and listening to ${PORT}`);

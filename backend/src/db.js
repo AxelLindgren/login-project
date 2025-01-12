@@ -13,12 +13,6 @@ const pool = new Pool({
   },
 });
 
-// const users = [];
-
-// console.log(process.env.DB_HOST);
-// console.log(process.env.DB_PORT);
-// console.log(process.env.DB_PASSWORD); x
-
 
 pool.query("SELECT NOW()", (err, res) => {
   if (err) {
